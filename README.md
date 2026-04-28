@@ -1,103 +1,170 @@
-The goal of this coding exam is to quickly get you off the ground with **Lists and Keys** in React JS.
+# 🌍 Visit Countries App
 
-### Refer to the image below:
+## 📌 Overview
 
-<br/>
-<div style="text-align: center;">
-    <img src="https://assets.ccbp.in/frontend/content/react-js/visit-countries-output.gif" alt="visit countries" style="max-width:70%;box-shadow:0 2.8px 2.2px rgba(0, 0, 0, 0.12)">
-</div>
-<br/>
+The **Visit Countries App** is a React application that allows users to mark countries as visited and manage their visited countries list dynamically.
 
-### Design Files
+Users can:
 
-<details>
-<summary>Click to view</summary>
+* View a list of countries
+* Mark countries as **Visited**
+* Remove countries from the **Visited Countries** section
+* See updates instantly based on their actions
 
-- [Medium (Size >= 768px), Large (Size >= 992px) and Extra Large (Size >= 1200px)](https://assets.ccbp.in/frontend/content/react-js/visit-countries-lg-output.png)
-- [Medium (Size >= 768px), Large (Size >= 992px) and Extra Large (Size >= 1200px) - No Visited Countries View](https://assets.ccbp.in/frontend/content/react-js/visit-countries-no-visited-countries-lg-output.png)
+---
 
-</details>
+## 🚀 Features
 
-### Set Up Instructions
+### 1️⃣ Initial Display
 
-<details>
-<summary>Click to view</summary>
+* Displays all countries from `initialCountriesList`
+* If a country is **not visited**, it shows a **Visit** button
+* If a country is **visited**, it shows **Visited** text
+* Visited countries appear in the **Visited Countries** section
 
-- Download dependencies by running `npm install`
-- Start up the app using `npm start`
+---
 
-</details>
+### 2️⃣ Visit Button Functionality
 
-### Completion Instructions
+When the **Visit** button is clicked:
 
-<details>
-<summary>Functionality to be added</summary>
-<br/>
+* The selected country moves to the **Visited Countries** section
+* The **Visit** button changes to **Visited**
+* UI updates automatically
 
-The app must have the following functionalities
+---
 
-- Initially, the list of given countries should be displayed.
-  - If the country is not visited, it should be displayed with the **Visit** button.
-  - If the country is visited, it should be displayed with the text **Visited** and also should be displayed in the visited countries.
-- When a **Visit** button of the country is clicked,
-  - The country should be added in the visited countries.
-  - The **Visit** button of a respective country should be replaced with the text **Visited**.
-- When a **Remove** button in one of the visited countries is clicked,
-  - The respective visited country should be removed from the visited countries.
-  - The **Visited** text of a respective visited country should be replaced with a **Visit** button.
-- When all the visited countries are removed, then [No Visited Countries View](https://assets.ccbp.in/frontend/content/react-js/visit-countries-no-visited-countries-lg-output.png) should be displayed.
-- The `App` component consists of the `initialCountriesList`. It consists of a list of countries with the following properties in each country object.
+### 3️⃣ Remove Button Functionality
 
-  |    key    | DataType |
-  | :-------: | :------: |
-  |    id     |  String  |
-  |   name    |  String  |
-  | imageUrl  |  String  |
-  | isVisited | Boolean  |
+When the **Remove** button is clicked:
 
-</details>
+* The country is removed from **Visited Countries**
+* The **Visited** text changes back to **Visit**
+* Country returns to the main list state
 
-### Important Note
+---
 
-<details>
-<summary>Click to view</summary>
+### 4️⃣ Empty Visited Countries View
 
-<br/>
+If no countries are visited:
 
-**The following instruction is required for the tests to pass**
+* The message **"No Visited Countries"** is displayed
 
-- The image of each visited country should have the `alt` attribute value as **thumbnail**.
+---
 
-</details>
+## 🧠 State Management Logic
 
-### Resources
+The application stores countries inside component state:
 
-<details>
-<summary>Colors</summary>
+```
+state = {
+  countryList: initialCountriesList
+}
+```
 
-<br/>
+Each country object contains:
 
-<div style="background-color: #161624; width: 150px; padding: 10px; color: white">Hex: #161624</div>
-<div style="background-color: #f8fafc; width: 150px; padding: 10px; color: black">Hex: #f8fafc</div>
-<div style="background-color: #334155; width: 150px; padding: 10px; color: white">Hex: #334155</div>
-<div style="background-color: #1f1f2f; width: 150px; padding: 10px; color: white">Hex: #1f1f2f</div>
-<div style="background-color: #f1f5f9; width: 150px; padding: 10px; color: black">Hex: #f1f5f9</div>
-<div style="background-color: #ffffff; width: 150px; padding: 10px; color: black">Hex: #ffffff</div>
-<div style="background-color: #3b82f6; width: 150px; padding: 10px; color: black">Hex: #3b82f6</div>
-<div style="background-color: #94a3b8; width: 150px; padding: 10px; color: white">Hex: #94a3b8</div>
-<div style="background-color: #cbd5e1; width: 150px; padding: 10px; color: black">Hex: #cbd5e1</div>
+```
+{
+  id: string,
+  name: string,
+  imageUrl: string,
+  isVisited: boolean
+}
+```
 
-</details>
+---
 
-<details>
-<summary>Font-families</summary>
+## 🔄 Visit Country Logic
 
-- Roboto
+```
+onClickVisit = id => {
+  this.setState(prevState => ({
+    countryList: prevState.countryList.map(each =>
+      each.id === id ? {...each, isVisited: true} : each
+    ),
+  }))
+}
+```
 
-</details>
+---
 
-> ### _Things to Keep in Mind_
->
-> - All components you implement should go in the `src/components` directory.
-> - Don't change the component folder names as those are the files being imported into the tests.
-> - **Do not remove the pre-filled code**
+## ❌ Remove Country Logic
+
+```
+onClickRemove = id => {
+  this.setState(prevState => ({
+    countryList: prevState.countryList.map(each =>
+      each.id === id ? {...each, isVisited: false} : each
+    ),
+  }))
+}
+```
+
+---
+
+## 🖼️ Technologies Used
+
+* React JS
+* JavaScript (ES6)
+* Styled Components
+* CSS Flexbox
+
+---
+
+## 📂 Project Structure
+
+```
+src/
+ ├── components/
+ │    ├── VisitCountries/
+ │    ├── CountryCard/
+ │
+ ├── App.js
+ ├── index.js
+```
+
+---
+
+## ▶️ How to Run the Project
+
+1. Install dependencies
+
+```
+npm install
+```
+
+2. Start the application
+
+```
+npm start
+```
+
+3. Open browser
+
+```
+http://localhost:3000
+```
+
+---
+
+## ✨ Expected Behavior Summary
+
+✔ Countries list loads initially
+✔ Visit button updates country status
+✔ Country appears in visited section
+✔ Remove button restores original state
+✔ Empty visited section shows message properly
+
+---
+
+## 📌 Author
+
+Developed as part of a React practice assignment to understand:
+
+* State updates
+* Conditional rendering
+* List rendering with keys
+* Event handling
+
+
